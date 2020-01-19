@@ -1,30 +1,32 @@
 package M_Main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 public class Main extends JPanel implements Runnable {
     Player player;
     private Thread th;
     private final int width = 800;
     private final int height = 400;
-    private boolean playerMoveLeft;
-    private boolean playerMoveRight;
-    private boolean playerMoveGo;
-    private boolean playerMoveBack;
-    private final int playerLeftSpeed = -2;
-    private final int PlayerRightSpeed = 2;
-    private final int PlayerGoSpeed = 2;
-    private final int PlayerBackSpeed = -2;
-    private Image dbImage;
-    private Graphics dbg;
+//    private Image dbImage;
+//    private Graphics dbg;
+    //배경화면 관련 변수
+    String bgOriginalPath="C:/Users/seojeong/Documents/seojeong/src/Image/sky.jpg"; //원본 이미지 파일명
+    String bgTargetPath="C:/Users/seojeong/Documents/seojeong/src/Image/sky_resize.jpg"; //새 이미지 파일 명
+    String bgFormat = "jpg";    //새 이미지 포맷 jpg
+    String mainPosition = "W";  //W:넚이 중심 H:높이 중심
+    private Image bgImage;
+    int w;
+    int h;
 
     public Main() {
-        setBackground(Color.YELLOW);
+//        setBackground(Color.YELLOW);
         setPreferredSize(new Dimension(width,height));
-        //player = new Player(width/2,(int)(height * 0.9),10,width-10);
         player = new Player((int)(width*0.03),height/2,10,width-20,10,height-20);
         addKeyListener(new ShipControl());
         setFocusable(true);
@@ -43,16 +45,20 @@ public class Main extends JPanel implements Runnable {
         public void keyPressed(KeyEvent e) {
             switch(e.getKeyCode()) {
                 case KeyEvent.VK_UP:
-                    playerMoveLeft = true;
+                    player.setPlayerMoveUp(true);
+                    //System.out.println("upSet");
                     break;
                 case KeyEvent.VK_DOWN:
-                    playerMoveRight = true;
-                    break;
-                case KeyEvent.VK_LEFT:
-                    playerMoveBack = true;
+                    player.setPlayerMoveDown(true);
+                    //System.out.println("downSet");
                     break;
                 case KeyEvent.VK_RIGHT:
-                    playerMoveGo = true;
+                    player.setPlayerMoveRight(true);
+                    //System.out.println("rightSet");
+                    break;
+                case KeyEvent.VK_LEFT:
+                    player.setPlayerMoveLeft(true);
+                    //System.out.println("leftSet");
                     break;
             }
         }
@@ -60,16 +66,20 @@ public class Main extends JPanel implements Runnable {
         public void keyReleased(KeyEvent e) {
             switch(e.getKeyCode()) {
                 case KeyEvent.VK_UP:
-                    playerMoveLeft = false;
+                    player.setPlayerMoveUp(false);
+                    //System.out.println("upRock");
                     break;
                 case KeyEvent.VK_DOWN:
-                    playerMoveRight = false;
-                    break;
-                case KeyEvent.VK_LEFT:
-                    playerMoveBack = false;
+                    player.setPlayerMoveDown(false);
+                    //System.out.println("downRock");
                     break;
                 case KeyEvent.VK_RIGHT:
-                    playerMoveGo = false;
+                    player.setPlayerMoveRight(false);
+                    //System.out.println("rightRock");
+                    break;
+                case KeyEvent.VK_LEFT:
+                    player.setPlayerMoveLeft(false);
+                    //System.out.println("leftRock");
                     break;
             }
         }
@@ -78,14 +88,30 @@ public class Main extends JPanel implements Runnable {
     public void run() {
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
         while(true) {
-            if(playerMoveLeft) {
-                player.moveY(playerLeftSpeed);
-            } else if (playerMoveRight) {
-                player.moveY(PlayerRightSpeed);
-            } else if (playerMoveGo){
-                player.moveX(PlayerGoSpeed);
-            }  else if(playerMoveBack){
-                player.moveX(PlayerBackSpeed);
+            if(player.isPlayerMoveUp() && player.isPlayerMoveDown()){
+                //System.out.println("stop");
+            } else if(player.isPlayerMoveRight() &&  player.isPlayerMoveLeft()){
+                //System.out.println("stop");
+            } else if(player.isPlayerMoveUp() && player.isPlayerMoveRight()){
+                player.moveY(player.getPlayerUpSpeed());
+                player.moveX(player.getPlayerRightSpeed());
+            } else if(player.isPlayerMoveUp() && player.isPlayerMoveLeft()){
+                player.moveY(player.getPlayerUpSpeed());
+                player.moveX(player.getPlayerLeftSpeed());
+            } else if(player.isPlayerMoveDown() && player.isPlayerMoveRight()){
+                player.moveY(player.getPlayerDownSpeed());
+                player.moveX(player.getPlayerRightSpeed());
+            } else if(player.isPlayerMoveDown() && player.isPlayerMoveLeft()){
+                player.moveY(player.getPlayerDownSpeed());
+                player.moveX(player.getPlayerLeftSpeed());
+            }else if(player.isPlayerMoveUp()) {
+                player.moveY(player.getPlayerUpSpeed());
+            } else if (player.isPlayerMoveDown()) {
+                player.moveY(player.getPlayerDownSpeed());
+            } else if (player.isPlayerMoveRight()){
+                player.moveX(player.getPlayerRightSpeed());
+            }  else if(player.isPlayerMoveLeft()){
+                player.moveX(player.getPlayerLeftSpeed());
             }
             repaint();
 
@@ -100,11 +126,33 @@ public class Main extends JPanel implements Runnable {
     }
 
     public void paintComponent(Graphics g) {
-        initImage(g);
+        g.fillRect(0,0,this.getSize().width,this.getSize().height);
+        //bgImage = new ImageIcon("C:/Users/seojeong/Documents/seojeong/src/Image/sky.jpg").getImage();//todo background image location route set
+        //Image scaleBGImage = bgImage.getScaledInstance(800,400,Image.SCALE_DEFAULT);
+
+        //g.drawImage(scaleBGImage,0,0,this);
+        try{
+            bgImage = ImageIO.read(new File(bgOriginalPath));
+
+            w = bgImage.getWidth(null);
+            h = bgImage.getHeight(null);
+
+
+            Image resizeImage = bgImage.getScaledInstance(w,h,Image.SCALE_SMOOTH);
+
+            BufferedImage newImage = new BufferedImage(w,h,BufferedImage.TYPE_INT_RGB);
+            Graphics newG = newImage.getGraphics();
+            newG.drawImage(resizeImage, 0, 0, null);
+            newG.dispose();
+            ImageIO.write(newImage,bgFormat,new File(bgTargetPath));
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         player.drawPlayer(g);
     }
 
-    private void initImage(Graphics g) {
+    /*private void initImage(Graphics g) {
         if(dbImage == null) {
             dbImage = createImage(this.getSize().width, this.getSize().height);
             dbg = dbImage.getGraphics();
@@ -115,7 +163,7 @@ public class Main extends JPanel implements Runnable {
 
         dbg.setColor(getForeground());
         g.drawImage(dbImage,0,0,this);
-    }
+    }*/
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Shooting");

@@ -9,7 +9,74 @@ public class Player {
     private int maxX;
     private int minY;
     private int maxY;
+    private boolean playerMoveUp;
+    private boolean playerMoveDown;
+    private boolean playerMoveRight;
+    private boolean playerMoveLeft;
+    private int playerUpSpeed = -2;   //sj.아이템으로 값이 수정될 경우를 대비하여 final 삭제
+    private int PlayerDownSpeed = 2;
+    private int PlayerRightSpeed = 2;
+    private int PlayerLeftSpeed = -2;
 
+    public boolean isPlayerMoveUp() {
+        return playerMoveUp;
+    }
+
+    public void setPlayerMoveUp(boolean playerMoveUp) {
+        this.playerMoveUp = playerMoveUp;
+    }
+
+    public boolean isPlayerMoveDown() {
+        return playerMoveDown;
+    }
+
+    public void setPlayerMoveDown(boolean playerMoveDown) {
+        this.playerMoveDown = playerMoveDown;
+    }
+
+    public boolean isPlayerMoveRight() {
+        return playerMoveRight;
+    }
+
+    public void setPlayerMoveRight(boolean playerMoveRight) {
+        this.playerMoveRight = playerMoveRight;
+    }
+
+    public boolean isPlayerMoveLeft() {
+        return playerMoveLeft;
+    }
+
+    public void setPlayerMoveLeft(boolean playerMoveLeft) {
+        this.playerMoveLeft = playerMoveLeft;
+    }
+    public int getPlayerUpSpeed() {
+        return playerUpSpeed;
+    }
+
+    public void setPlayerUpSpeed(int playerUpSpeed) {
+        this.playerUpSpeed = playerUpSpeed;
+    }
+
+    public int getPlayerDownSpeed() {
+        return PlayerDownSpeed;
+    }
+
+    public void setPlayerDownSpeed(int playerDownSpeed) {
+        PlayerDownSpeed = playerDownSpeed;
+    }
+
+    public int getPlayerRightSpeed() {
+        return PlayerRightSpeed;
+    }
+    public void setPlayerRightSpeed(int playerRightSpeed) {
+        PlayerRightSpeed = playerRightSpeed;
+    }
+    public int getPlayerLeftSpeed() {
+        return PlayerLeftSpeed;
+    }
+    public void setPlayerLeftSpeed(int playerLeftSpeed) {
+        PlayerLeftSpeed = playerLeftSpeed;
+    }
     public Player(int x, int y, int minX, int maxX, int minY, int maxY) {
         xPos = x;
         yPos = y;
@@ -18,7 +85,6 @@ public class Player {
         this.minY = minY;
         this.maxY = maxY;
     }
-
     public void moveY(int speed) {
         yPos += speed;
         if( yPos < minY) yPos = minY;
@@ -30,21 +96,8 @@ public class Player {
         if( xPos > maxX) xPos = maxX;
     }
 
-
-    public int getX() {
-        return xPos;
-    }
-
-    public int getY() {
-        return yPos;
-    }
-
-
     public void drawPlayer(Graphics g) {
         g.setColor(Color.RED);
         g.fillOval(xPos, yPos,10,10);
-        /*int[] x_poly = {x_pos, x_pos - 10, x_pos, x_pos + 10};
-        int[] y_poly = {y_pos, y_pos + 15, y_pos + 10, y_pos + 15};
-        g.fillPolygon(x_poly, y_poly, 4);*/
     }
 }
