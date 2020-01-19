@@ -25,12 +25,12 @@ public class Enemy {
         xPos += deltaX;
         yPos += deltaY;
 
-        if (xPos < 0) {
-            xPos = 0;
-            deltaX = -deltaX;
-        } else if(xPos > maxX) {
-            xPos = maxX;
-            deltaX = -deltaX;
+        if (yPos < 0) {
+            yPos = 0;
+            deltaY = -deltaY;
+        } else if(yPos > maxY) {
+            yPos = maxY;
+            deltaY = -deltaY;
         }
         if(yPos > maxY) {
             yPos = 0;

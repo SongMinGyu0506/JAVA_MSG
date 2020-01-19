@@ -21,8 +21,8 @@ public class Main extends JPanel implements Runnable {
     private final int width = 800;
     private final int height = 400;
     private javax.swing.Timer timer;
-    private final int enemyTimeGap = 2000;
-    private final int maxEnemySize = 10;
+    private final int enemyTimeGap = 1000;
+    private final int maxEnemySize = 20;
     private final int enemyMaxHorizonSpeed = 1;
 
     private boolean playerMoveLeft;
@@ -56,6 +56,11 @@ public class Main extends JPanel implements Runnable {
         th.start();
     }
 
+    /*
+    *   Enemy 생성 클래스,
+    *   Random 함수 이용하여 Enemy 속도와 등장 위치 지정
+    *   ArrayList 활용하여 등장 Enemy 지정
+    * */
     private class addANewEnemy implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -66,7 +71,7 @@ public class Main extends JPanel implements Runnable {
                 } while(downspeed == 0);
 
                 float horspeed = rand.nextFloat() * 2 * enemyMaxHorizonSpeed - enemyMaxHorizonSpeed;
-                Enemy newEnemy = new Enemy(width,(int)(rand.nextFloat() * width),horspeed,downspeed,width,height,enemyMaxDownSpeedInc);
+                Enemy newEnemy = new Enemy(width,(int)(rand.nextFloat() * height),horspeed,downspeed,width,height,enemyMaxDownSpeedInc);
                 enemies.add(newEnemy);
             } else {
                 timer.stop();
@@ -127,6 +132,9 @@ public class Main extends JPanel implements Runnable {
                 player.moveX(PlayerBackSpeed);
             }
 
+            /*
+            *   Enemy Move
+            * */
             Iterator enemyList = enemies.iterator();
             while(enemyList.hasNext()) {
                 Enemy enemy = (Enemy) enemyList.next();
