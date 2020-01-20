@@ -87,30 +87,42 @@ public class Main extends JPanel implements Runnable {
     @Override
     public void run() {
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+        /*
+        * Player Move
+        * */
         while(true) {
             if(player.isPlayerMoveUp() && player.isPlayerMoveDown()){
                 //System.out.println("stop");
-            } else if(player.isPlayerMoveRight() &&  player.isPlayerMoveLeft()){
+            }
+            else if(player.isPlayerMoveRight() &&  player.isPlayerMoveLeft()){
                 //System.out.println("stop");
-            } else if(player.isPlayerMoveUp() && player.isPlayerMoveRight()){
+            }
+            else if(player.isPlayerMoveUp() && player.isPlayerMoveRight()){
                 player.moveY(player.getPlayerUpSpeed());
                 player.moveX(player.getPlayerRightSpeed());
-            } else if(player.isPlayerMoveUp() && player.isPlayerMoveLeft()){
+            }
+            else if(player.isPlayerMoveUp() && player.isPlayerMoveLeft()){
                 player.moveY(player.getPlayerUpSpeed());
                 player.moveX(player.getPlayerLeftSpeed());
-            } else if(player.isPlayerMoveDown() && player.isPlayerMoveRight()){
+            }
+            else if(player.isPlayerMoveDown() && player.isPlayerMoveRight()){
                 player.moveY(player.getPlayerDownSpeed());
                 player.moveX(player.getPlayerRightSpeed());
-            } else if(player.isPlayerMoveDown() && player.isPlayerMoveLeft()){
+            }
+            else if(player.isPlayerMoveDown() && player.isPlayerMoveLeft()){
                 player.moveY(player.getPlayerDownSpeed());
                 player.moveX(player.getPlayerLeftSpeed());
-            }else if(player.isPlayerMoveUp()) {
+            }
+            else if(player.isPlayerMoveUp()) {
                 player.moveY(player.getPlayerUpSpeed());
-            } else if (player.isPlayerMoveDown()) {
+            }
+            else if (player.isPlayerMoveDown()) {
                 player.moveY(player.getPlayerDownSpeed());
-            } else if (player.isPlayerMoveRight()){
+            }
+            else if (player.isPlayerMoveRight()){
                 player.moveX(player.getPlayerRightSpeed());
-            }  else if(player.isPlayerMoveLeft()){
+            }
+            else if(player.isPlayerMoveLeft()){
                 player.moveX(player.getPlayerLeftSpeed());
             }
             repaint();

@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="18d4dbf7-e2a8-49fb-a672-4fc01d69f6b6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Move/M_Main/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Move/M_Main/Enemy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Move/M_Main/Main$ShipControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Move/M_Main/Main$ShipControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Move/M_Main/Main$addANewEnemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Move/M_Main/Main$addANewEnemy.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Move/M_Main/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Move/M_Main/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/M_Main/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/M_Main/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/M_Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/M_Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../seojeong/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../seojeong/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="18d4dbf7-e2a8-49fb-a672-4fc01d69f6b6" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
