@@ -3,10 +3,15 @@ package M_Main;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 public class Main extends JPanel implements Runnable {
     Player player;
@@ -24,17 +29,57 @@ public class Main extends JPanel implements Runnable {
     int w;
     int h;
 
+    //Enemy
+    private ArrayList enemies;
+    private final int enemyMaxDownSpeed = 1;
+    private int enemySize;
+    private Random rand;
+    private javax.swing.Timer timer;
+    private final int enemyTimeGap = 1000;
+    private final int maxEnemySize = 20;
+    private final int enemyMaxHorizonSpeed = 1;
+    private float enemyMaxDownSpeedInc = 0.3f;
+
     public Main() {
 //        setBackground(Color.YELLOW);
         setPreferredSize(new Dimension(width,height));
         player = new Player((int)(width*0.03),height/2,10,width-20,10,height-20);
         addKeyListener(new ShipControl());
         setFocusable(true);
+
+        enemies = new ArrayList();
+        enemySize = 0;
+        rand = new Random(1);
+        timer = new javax.swing.Timer(enemyTimeGap, new addANewEnemy());
+        timer.start();
     }
 
     public void start() {
         th = new Thread(this);
         th.start();
+    }
+
+    /*
+     *   Enemy 생성 클래스,
+     *   Random 함수 이용하여 Enemy 속도와 등장 위치 지정
+     *   ArrayList 활용하여 등장 Enemy 지정
+     * */
+    private class addANewEnemy implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(++enemySize <= maxEnemySize) {
+                float downspeed;
+                do {
+                    downspeed = rand.nextFloat() * enemyMaxDownSpeed;
+                } while(downspeed == 0);
+
+                float horspeed = rand.nextFloat() * 2 * enemyMaxHorizonSpeed - enemyMaxHorizonSpeed;
+                Enemy newEnemy = new Enemy(width,(int)(rand.nextFloat() * height),horspeed,downspeed,width,height,enemyMaxDownSpeedInc);
+                enemies.add(newEnemy);
+            } else {
+                timer.stop();
+            }
+        }
     }
 
     public class ShipControl implements KeyListener {
@@ -125,6 +170,13 @@ public class Main extends JPanel implements Runnable {
             else if(player.isPlayerMoveLeft()){
                 player.moveX(player.getPlayerLeftSpeed());
             }
+
+            Iterator enemyList = enemies.iterator();
+            while(enemyList.hasNext()) {
+                Enemy enemy = (Enemy) enemyList.next();
+                enemy.move();
+            }
+
             repaint();
 
             try {
@@ -132,7 +184,6 @@ public class Main extends JPanel implements Runnable {
             } catch (InterruptedException ex) {
 
             }
-
             Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
         }
     }
@@ -162,6 +213,12 @@ public class Main extends JPanel implements Runnable {
             e.printStackTrace();
         }
         player.drawPlayer(g);
+
+        Iterator enemyList = enemies.iterator();
+        while(enemyList.hasNext()) {
+            Enemy enemy = (Enemy) enemyList.next();
+            enemy.draw(g);
+        }
     }
 
     /*private void initImage(Graphics g) {
