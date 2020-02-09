@@ -90,7 +90,7 @@ public class Main extends JPanel implements Runnable {
                 } while(downspeed == 0);
 
                 float horspeed = rand.nextFloat() * 2 * enemyMaxHorizonSpeed - enemyMaxHorizonSpeed;
-                Enemy newEnemy = new Enemy(width,(int)(rand.nextFloat() * height),horspeed,downspeed,width,height,enemyMaxDownSpeedInc);
+                EnemyInterface newEnemy = new Enemy(width,(int)(rand.nextFloat() * height),horspeed,downspeed,width,height,enemyMaxDownSpeedInc);
                 newEnemy.InitCoolTime(rand.nextInt(enemyShootCoolTime)+enemyShootMinCoolTime);
                 enemies.add(newEnemy);
             } else {

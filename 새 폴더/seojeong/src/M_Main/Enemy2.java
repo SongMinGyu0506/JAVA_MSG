@@ -2,11 +2,10 @@ package M_Main;
 
 import M_Main.Shoot.*;
 
+import java.awt.*;
 import java.util.Random;
 
-import java.awt.*;
-
-public class Enemy implements EnemyInterface {
+public class Enemy2 implements EnemyInterface {
     private float xPos;
     private float yPos;
     private float deltaX;
@@ -15,10 +14,10 @@ public class Enemy implements EnemyInterface {
     private int maxY;
     private float deltaYInc;
     private int coolTime;
-    private final int collision_distance = 10;
+    private final int collision_distance=10;
     Random rand = new Random();
 
-    public Enemy(float xPos, float yPos, float deltaX, float deltaY, int maxX, int maxY, float deltaYInc) {
+    public Enemy2(float xPos, float yPos, float deltaX, float deltaY, int maxX, int maxY, float deltaYInc) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.deltaX = deltaX;
@@ -33,6 +32,8 @@ public class Enemy implements EnemyInterface {
         xPos += deltaX;
         yPos += deltaY;
 
+
+        //todo:기본 이동형 ===> 추후에 패턴재정의 예정
         if (yPos < 0) {
             yPos = 0;
             deltaY = -deltaY;
@@ -51,11 +52,11 @@ public class Enemy implements EnemyInterface {
         g.setColor(Color.WHITE);
         int[] xPolyArray = {(int)xPos,(int)xPos-10,(int)xPos,(int)xPos+10};
         int[] yPolyArray = {(int)yPos+15,(int)yPos,(int)yPos+10,(int)yPos};
-        g.fillPolygon(xPolyArray,yPolyArray,4);
+        g.fillPolygon(xPolyArray,yPolyArray,3);
     }
-    //에너미 총알 생성
+
     @Override
-    public Shoot generateShoot(){
+    public Shoot generateShoot() {
         int numRand = rand.nextInt(3);
         System.out.println(numRand);
         Shoot shoot = null;
@@ -71,13 +72,19 @@ public class Enemy implements EnemyInterface {
         }
         return shoot;
     }
-    public void InitCoolTime(int coolTime){
-        this.coolTime=coolTime;
-    }
-    public int countCoolTime(){
-        return --coolTime;
+
+    @Override
+    public boolean isCollidedWithPlayer(Player player) {
+        if (-collision_distance <= (yPos - player.getyPos()) && (yPos - player.getyPos() <= collision_distance)) {
+            if (-collision_distance <= (xPos - player.getxPos()) && (xPos - player.getxPos() <= collision_distance)) {
+                //collided.
+                return true;
+            }
+        }
+        return false;
     }
 
+    @Override
     public boolean isCollidedWithShot(PlayerShoot[] shots) {
         for (PlayerShoot shot : shots) {
             if (shot == null) {
@@ -93,13 +100,14 @@ public class Enemy implements EnemyInterface {
         }
         return false;
     }
-    public boolean isCollidedWithPlayer(Player player) {
-        if (-collision_distance <= (yPos - player.getyPos()) && (yPos - player.getyPos() <= collision_distance)) {
-            if (-collision_distance <= (xPos - player.getxPos()) && (xPos - player.getxPos() <= collision_distance)) {
-                //collided.
-                return true;
-            }
-        }
-        return false;
+
+    @Override
+    public void InitCoolTime(int coolTime) {
+        this.coolTime=coolTime;
+    }
+
+    @Override
+    public int countCoolTime() {
+        return --coolTime;
     }
 }
