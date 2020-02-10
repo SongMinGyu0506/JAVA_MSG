@@ -5,7 +5,7 @@ import M_Main.Shoot.*;
 import java.awt.*;
 import java.util.Random;
 
-public class Enemy2 implements EnemyInterface {
+public class Enemy3 implements EnemyInterface {
     private float xPos;
     private float yPos;
     private float deltaX;
@@ -17,7 +17,7 @@ public class Enemy2 implements EnemyInterface {
     private final int collision_distance=10;
     Random rand = new Random();
 
-    public Enemy2(float xPos, float yPos, float deltaX, float deltaY, int maxX, int maxY, float deltaYInc) {
+    public Enemy3(float xPos, float yPos, float deltaX, float deltaY, int maxX, int maxY, float deltaYInc) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.deltaX = deltaX;
@@ -43,14 +43,14 @@ public class Enemy2 implements EnemyInterface {
         }
         if(yPos > maxY) {
             yPos = 0;
-            deltaY += deltaYInc;
+            deltaY += deltaYInc+1;
         }
     }
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.DARK_GRAY);
-        g.fillRect((int)xPos,(int)yPos,15,15);
+        g.setColor(Color.MAGENTA);
+        g.fillArc((int)xPos,(int)yPos,50,50,50,50);
     }
 
     @Override

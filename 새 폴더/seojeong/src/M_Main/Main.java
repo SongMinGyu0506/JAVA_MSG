@@ -49,7 +49,8 @@ public class Main extends JPanel implements Runnable {
 
     //image
     ImageIcon icon;
-
+    //Other
+    Random rand2 = new Random();
 
     public Main() {
         //setBackground(Color.YELLOW);
@@ -88,9 +89,15 @@ public class Main extends JPanel implements Runnable {
                 do {
                     downspeed = rand.nextFloat() * enemyMaxDownSpeed;
                 } while(downspeed == 0);
-
+                EnemyInterface newEnemy;
+                int randCase = rand2.nextInt(3);
                 float horspeed = rand.nextFloat() * 2 * enemyMaxHorizonSpeed - enemyMaxHorizonSpeed;
-                EnemyInterface newEnemy = new Enemy(width,(int)(rand.nextFloat() * height),horspeed,downspeed,width,height,enemyMaxDownSpeedInc);
+                if(randCase == 0)
+                    newEnemy = new Enemy(width,(int)(rand.nextFloat() * height),horspeed,downspeed,width,height,enemyMaxDownSpeedInc);
+                else if(randCase == 1)
+                    newEnemy = new Enemy2(width,(int)(rand.nextFloat() * height),horspeed,downspeed,width,height,enemyMaxDownSpeedInc);
+                else
+                    newEnemy = new Enemy3(width,(int)(rand.nextFloat() * height),horspeed,downspeed,width,height,enemyMaxDownSpeedInc);
                 newEnemy.InitCoolTime(rand.nextInt(enemyShootCoolTime)+enemyShootMinCoolTime);
                 enemies.add(newEnemy);
             } else {
@@ -192,7 +199,7 @@ public class Main extends JPanel implements Runnable {
 
             Iterator enemyList = enemies.iterator();
             while(enemyList.hasNext()) {
-                Enemy enemy = (Enemy) enemyList.next();
+                EnemyInterface enemy = (EnemyInterface) enemyList.next();
                 enemy.move();
                 if(enemy.countCoolTime()<0){
                     shoots.add(enemy.generateShoot());
@@ -265,7 +272,7 @@ public class Main extends JPanel implements Runnable {
 
         Iterator enemyList = enemies.iterator();
         while(enemyList.hasNext()) {
-            Enemy enemy = (Enemy) enemyList.next();
+            EnemyInterface enemy = (EnemyInterface) enemyList.next();
             enemy.draw(g);
             //if(enemy.isCollidedWithShot(shoots))
             if(enemy.isCollidedWithPlayer(player)) {
