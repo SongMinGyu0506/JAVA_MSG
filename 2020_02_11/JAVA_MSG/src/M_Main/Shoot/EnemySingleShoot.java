@@ -6,6 +6,7 @@ public class EnemySingleShoot implements Shoot {
 
     int xPos;
     int yPos , yPos2;//총알 위치
+    final int collision_distance = 3; //충돌 범위 지정
 
     //One Shot
     public EnemySingleShoot(int xPos, int yPos){
@@ -37,5 +38,13 @@ public class EnemySingleShoot implements Shoot {
     @Override
     public String getName() {
         return "EnemyShoot";
+    }
+
+    pulbic boolean isCollidedWithPlayer(Player player){
+        if (-collision_distance <= (yPos - player.getyPos()) && (yPos - player.getyPos() <= collision_distance)){
+            if (-collision_distance <= (xPos - player.getxPos()) && (xPos - player.getxPos() <= collision_distance)){
+                return true; //범위 내 충돌시
+            }
+        } return false;
     }
 }

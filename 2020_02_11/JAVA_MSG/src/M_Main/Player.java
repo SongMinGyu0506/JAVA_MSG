@@ -27,6 +27,11 @@ public class Player {
     private int PlayerDownSpeed = 2;
     private int PlayerRightSpeed = 2;
     private int PlayerLeftSpeed = -2;
+    private int PlayerLife = 3; //다혜
+
+    public int getPlayerLife() { return PlayerLife(); } //다혜
+
+    public void isAttacked() { --PlayerLife; } //다혜
 
     public boolean isPlayerMoveUp() {
         return playerMoveUp;

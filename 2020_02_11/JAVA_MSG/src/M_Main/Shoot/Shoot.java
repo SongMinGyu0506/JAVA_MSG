@@ -8,4 +8,5 @@ public interface Shoot {
     int getXPos();
     int getYPos();
     String getName();
+    public boolean inCollidedWithPlayer(Player player); //다혜
 }

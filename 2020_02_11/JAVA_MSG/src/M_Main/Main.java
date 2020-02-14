@@ -278,7 +278,11 @@ public class Main extends JPanel implements Runnable {
             //if(enemy.isCollidedWithShot(shoots))
             if(enemy.isCollidedWithPlayer(player)) {
                 enemyList.remove();
-                System.exit(0);
+                System.out.println("life: "+player.getPlayerLife());
+                player.isAttacked(); //맞으면 라이프1개 감소
+                if(player.getPlayerLife()<=0) {
+                    System.exit(0); //라이프 0개되면 종료
+                }
             }
         }
 
