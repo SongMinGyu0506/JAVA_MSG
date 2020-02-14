@@ -58,18 +58,10 @@ public class Enemy implements EnemyInterface {
     @Override
     public Shoot generateShoot(){
         int numRand = rand.nextInt(3);
-        System.out.println(numRand);
+        //System.out.println(numRand);
         Shoot shoot = null;
-        if(numRand == 0) {
-            shoot = new EnemySingleShoot((int) xPos, (int) yPos);
-            //shoot = new EnemyDoubleShot((int)xPos,(int)yPos);
-        }
-        else if(numRand == 1) {
-            shoot = new EnemyTripleShot((int)xPos,(int)yPos);
-        }
-        else if(numRand == 2) {
-            shoot = new EnemyBigShot((int)xPos,(int)yPos);
-        }
+        shoot = new EnemySingleShoot((int) xPos, (int) yPos);
+        //shoot = new EnemyDoubleShot((int)xPos,(int)yPos);
         return shoot;
     }
     public void InitCoolTime(int coolTime){

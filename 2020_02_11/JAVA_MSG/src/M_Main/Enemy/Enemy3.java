@@ -3,6 +3,7 @@ package M_Main.Enemy;
 import M_Main.Player;
 import M_Main.Shoot.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -19,6 +20,9 @@ public class Enemy3 implements EnemyInterface {
     private int coolTime;
     private final int collision_distance=10;
     Random rand = new Random();
+    ImageIcon imageIcon;
+
+
 
     public Enemy3(float xPos, float yPos, float deltaX, float deltaY, int maxX, int maxY, float deltaYInc) {
         this.xPos = xPos;
@@ -52,25 +56,19 @@ public class Enemy3 implements EnemyInterface {
 
     @Override
     public void draw(Graphics g) {
-        g.setColor(Color.MAGENTA);
-        g.fillArc((int)xPos,(int)yPos,50,50,50,50);
+        imageIcon = new ImageIcon("./tempMonster.png");
+        Image originImg = imageIcon.getImage();
+        g.drawImage(imageIcon.getImage(),(int)xPos,(int)yPos,null);
+        /*g.setColor(Color.MAGENTA);
+        g.fillArc((int)xPos,(int)yPos,50,50,50,50);*/
     }
 
     @Override
     public Shoot generateShoot() {
         int numRand = rand.nextInt(3);
-        System.out.println(numRand);
+        //System.out.println(numRand);
         Shoot shoot = null;
-        if(numRand == 0) {
-            shoot = new EnemySingleShoot((int) xPos, (int) yPos);
-            //shoot = new EnemyDoubleShot((int)xPos,(int)yPos);
-        }
-        else if(numRand == 1) {
-            shoot = new EnemyTripleShot((int)xPos,(int)yPos);
-        }
-        else if(numRand == 2) {
-            shoot = new EnemyBigShot((int)xPos,(int)yPos);
-        }
+        shoot = new EnemyBigShot((int)xPos,(int)yPos);
         return shoot;
     }
 
