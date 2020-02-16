@@ -1,5 +1,7 @@
 package M_Main.Shoot;
 
+import M_Main.Player;
+
 import java.awt.*;
 
 public interface Shoot {
@@ -8,5 +10,7 @@ public interface Shoot {
     int getXPos();
     int getYPos();
     String getName();
-    public boolean inCollidedWithPlayer(Player player); //다혜
+    public boolean isCollidedWithPlayer(Player player); //다혜
+
+
 }

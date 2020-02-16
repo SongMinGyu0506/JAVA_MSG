@@ -276,11 +276,11 @@ public class Main extends JPanel implements Runnable {
             EnemyInterface enemy = (EnemyInterface) enemyList.next();
             enemy.draw(g);
             //if(enemy.isCollidedWithShot(shoots))
-            if(enemy.isCollidedWithPlayer(player)) {
+            if (enemy.isCollidedWithPlayer(player)) {
                 enemyList.remove();
-                System.out.println("life: "+player.getPlayerLife());
+                System.out.println("life: " + player.getPlayerLife());
                 player.isAttacked(); //맞으면 라이프1개 감소
-                if(player.getPlayerLife()<=0) {
+                if (player.getPlayerLife() <= 0) {
                     System.exit(0); //라이프 0개되면 종료
                 }
             }
@@ -290,6 +290,14 @@ public class Main extends JPanel implements Runnable {
         while(shootIt.hasNext()){
             Shoot shoot= (Shoot) shootIt.next();
             shoot.draw(g);
+            if(shoot.isCollidedWithPlayer(player)) {
+                shootIt.remove();
+                player.isAttacked(); //맞으면 라이프1개 감소
+                System.out.println("life: " + player.getPlayerLife());
+                if (player.getPlayerLife() <= 0) {
+                    System.exit(0); //라이프 0개되면 종료
+                }
+            }
         }
     }
 

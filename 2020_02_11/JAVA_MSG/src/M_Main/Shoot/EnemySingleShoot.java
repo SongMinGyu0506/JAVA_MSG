@@ -1,5 +1,7 @@
 package M_Main.Shoot;
 
+import M_Main.Player;
+
 import java.awt.*;
 
 public class EnemySingleShoot implements Shoot {
@@ -40,7 +42,7 @@ public class EnemySingleShoot implements Shoot {
         return "EnemyShoot";
     }
 
-    pulbic boolean isCollidedWithPlayer(Player player){
+    public boolean isCollidedWithPlayer(Player player){
         if (-collision_distance <= (yPos - player.getyPos()) && (yPos - player.getyPos() <= collision_distance)){
             if (-collision_distance <= (xPos - player.getxPos()) && (xPos - player.getxPos() <= collision_distance)){
                 return true; //범위 내 충돌시

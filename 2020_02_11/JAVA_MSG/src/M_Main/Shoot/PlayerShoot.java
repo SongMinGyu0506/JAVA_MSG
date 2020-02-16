@@ -2,7 +2,7 @@ package M_Main.Shoot;
 
 import java.awt.*;
 
-public class PlayerShoot implements Shoot {
+public abstract class PlayerShoot implements Shoot {
     public boolean alive;
     int xPos,yPos; // 총알 위치
 

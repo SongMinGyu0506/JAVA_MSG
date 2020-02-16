@@ -29,7 +29,7 @@ public class Player {
     private int PlayerLeftSpeed = -2;
     private int PlayerLife = 3; //다혜
 
-    public int getPlayerLife() { return PlayerLife(); } //다혜
+    public int getPlayerLife() { return PlayerLife; } //다혜
 
     public void isAttacked() { --PlayerLife; } //다혜
 
@@ -118,8 +118,10 @@ public class Player {
 
     //플레이어 총알 생성
     public PlayerShoot generateShoot(){
-        PlayerShoot shoot=new PlayerShoot(xPos,yPos);
-
+        PlayerShoot shoot= new PlayerShoot(xPos, yPos) {
+            @Override
+            public boolean isCollidedWithPlayer(Player player) {return false;}
+        };
         return shoot;
     }
 }

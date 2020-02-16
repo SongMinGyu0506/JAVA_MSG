@@ -1,5 +1,7 @@
 package M_Main.Shoot;
 
+import M_Main.Player;
+
 import java.awt.*;
 
 public class EnemyTripleShot implements Shoot {
@@ -43,7 +45,7 @@ public class EnemyTripleShot implements Shoot {
     }
 
     @Override
-    pulbic boolean isCollidedWithPlayer(Player player){
+    public boolean isCollidedWithPlayer(Player player){
         if (-collision_distance <= (yPos1 - player.getyPos()) && (yPos1 - player.getyPos() <= collision_distance)){
             if (-collision_distance <= (xPos - player.getxPos()) && (xPos - player.getxPos() <= collision_distance)){
                 return true; //범위 내 충돌시
