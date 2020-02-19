@@ -12,9 +12,9 @@ public class Enemy3 implements EnemyInterface {
     //todo Enemy3번 닿으면 안죽음
     private float xPos;
     private float yPos;
-    private float deltaX;
-    private float deltaY;
-    private int maxX;
+    private double deltaX; // MG : 02.19 -> 에너미 이동속도 조절을 위해서 float 에서 double로 수정함
+    private double deltaY; // MG : 02.19 -> 에너미 이동속도 조절을 위해서 float 에서 double로 수정함
+   private int maxX;
     private int maxY;
     private float deltaYInc;
     private int coolTime;
@@ -39,26 +39,29 @@ public class Enemy3 implements EnemyInterface {
         xPos += deltaX;
         yPos += deltaY;
 
-
-        //todo:기본 이동형 ===> 추후에 패턴재정의 예정
+        //MG : 2.19 --> 가로축 벽에 부딪힐 시 에너미의 속도가 빨라짐
         if (yPos < 0) {
             yPos = 0;
-            deltaY = -deltaY;
+            deltaY = -deltaY+0.2;
         } else if(yPos > maxY) {
             yPos = maxY;
-            deltaY = -deltaY;
+            deltaY = -deltaY-0.2;
         }
         if(yPos > maxY) {
             yPos = 0;
             deltaY += deltaYInc;
         }
     }
-
+    /*
+    *   MG : Enemy 이미지 추가, 임시 이미지 추가했으니 이미지만 바꾸시면 됩니다.
+    * */
     @Override
     public void draw(Graphics g) {
         imageIcon = new ImageIcon("./tempMonster.png");
         Image originImg = imageIcon.getImage();
-        g.drawImage(imageIcon.getImage(),(int)xPos,(int)yPos,null);
+        Image changedImg = originImg.getScaledInstance(30,30,Image.SCALE_SMOOTH);
+        ImageIcon newIcon = new ImageIcon(changedImg);
+        g.drawImage(newIcon.getImage(),(int)xPos,(int)yPos,null);
         /*g.setColor(Color.MAGENTA);
         g.fillArc((int)xPos,(int)yPos,50,50,50,50);*/
     }

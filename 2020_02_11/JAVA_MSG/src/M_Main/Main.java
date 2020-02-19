@@ -288,6 +288,10 @@ public class Main extends JPanel implements Runnable {
 
         Iterator shootIt=shoots.iterator();
         while(shootIt.hasNext()){
+            /*
+                MG : AWT-EventQueue-0, java.util.ConcurrentModificationException
+                예외상황 발생 해당 예외상황 발생시 게임이 끊어지는 것 같음
+             */
             Shoot shoot= (Shoot) shootIt.next();
             shoot.draw(g);
             if(shoot.isCollidedWithPlayer(player)) {
